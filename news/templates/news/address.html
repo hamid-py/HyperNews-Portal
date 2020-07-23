@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <form action="/news/">
+       <p> <input type="text" name="q" value="find news"></p>
+        <br>
+
+    </form>
+    <meta charset="UTF-8">
+    <h2>Hyper news</h2>
+</head>
+<body>
+<!--{% regroup json_news|dictsort:"created" by created as date_list %}-->
+{% regroup json_news by created as date_list %}
+
+<ul>
+{% for created in date_list %}
+    <h4>{{ created.grouper}}</h4>
+    <ul>
+        {% for news in created.list %}
+          <li><a href="/news/{{news.link}}/">{{news.title}}</a></li>
+        {% endfor %}
+    </ul>
+
+{% endfor %}
+</ul>
+
+<a target="_blank" href="/news/create/">future page</a>
+</body>
+</html>
